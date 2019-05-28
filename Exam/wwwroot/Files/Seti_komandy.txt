@@ -1,0 +1,143 @@
+[user view]
+system-view,
+save
+dir
+display mac-address
+display arp
+display ip pool
+display ip pool name pool1 used 
+display ip pool name vlanif200 used 
+
+
+
+[system view]
+sysname __,
+interface Gi___       --      gigabitethernet
+display ip interface brief      --  проверка назначения ip
+user-interface console 0     --  Настроить защиту доступа к консоли :   переход в нужный контекст:
+[huawei-u1-console]authentication-mode password
+[huawei-u1-console]set authentication password cipher PASSWORD    --   тут: - пароль шифруется, в конфигурации устройства виден не будет - последнее слово, собственно, и является паролем
+display current configuration 
+reboot
+ip pool NAME
+dhcp enable
+ip route-static NETWORKIP MASK IP - маршрут к сети
+display ipv6 interface
+ipv6
+ping ipv6
+display ipv6 neighbors
+display ipv6 routing-table
+ipv6 route-static :: 0 2001:db8::1
+dhcpv6 pool NAME
+display dhcpv6 pool
+display dhcpv6 server
+display dhcpv6 duid
+interface tunnel 0/0/0
+display interface tunnel 0/0/0
+display ipv6 interface tunnel 0/0/0
+interface Gi0/0/0.100
+[Huawei-GigabitEthernet0/0/0.100]dot1q termination vid 100
+[Huawei-GigabitEthernet0/0/0.100]arp broadcast enable
+display interface GigabitEthernet0/0/0.100
+interface vlanif 100
+[Huawei-Vlanif100]dhcp select global
+[Huawei-Vlanif200]dhcp select interface
+
+
+[interface__]
+ip address IPADDRESS MASK
+arp-proxy enable
+dhcp select global
+dhcp select relay
+dhcp relay server-ip 192.168.1.1
+dhcp select interface
+undo negotiation auto 
+duplex half 
+speed 100
+ipv6 enable
+ipv6 address auto link-local
+ipv6 address IPADDRESS MASK
+undo ipv6 ra halt  --    включить RA рассылку
+ipv6 address auto global
+dhcpv6 server NAME
+ipv6 address auto dhcp
+ipv6 nd autoconfig managed-address-flag    --   в режиме настройки интерфейса, через который будут обслуживаться dhcp-клиенты:  раздавать указания клиентам получать все настройки от DHCP сервера:
+ipv6 nd autoconfig other-flag    --    в режиме настройки интерфейса, через который будут обслуживаться dhcp-клиенты: раздавать указания клиентам получать опции от DHCP сервера:
+dhcpv6 client pd NAME     --     получение префикса для делигирования в нижерасположенные сети (на интерфейсе, направленном в сеть DHCPv6 сервера):
+ipv6 address pool2 0:0:0:1111::1/64
+dhcpv6 relay destination 2001::1
+
+
+[huawei-ip-pool-NAME]
+network IPADDRESS mask MASK
+gateway-list 192.168.2.1
+lease day 1
+excluded-ip-address 192.168.1.2 192.168.1.99
+
+
+[Huawei-dhcpv6-pool-NAME]
+address prefix 2001:db8::/64
+excluded-address 2001:db8::1
+dns-server 2001:db8::1
+prefix-delegation 2002::/48 48
+dns-server 2001::1
+
+
+
+[Huawei-Tunnel0/0/0]
+ipv6 enable
+ipv6 address 2500::1/64
+tunnel-protocol ipv6-ipv4   -настроить тип туннеля
+source _IPv4_АДРЕС_GE0/0/1_AR1_
+destination _IPv4_АДРЕС_GE0/0/1_AR2_
+
+
+
+[PC]
+arp -a таблица arp
+ping
+tracert IP - трассировка IP
+ipconfig
+ipconfig /renew
+ipconfig /release (освободить адрес)
+
+
+[LSW]
+[system view]
+dhcp enable
+dhcp snooping enable
+vlan 1
+interface eth0/0/0
+display vlan
+display stp brief
+stp region-configuration
+[Huawei-mstp-region]region-name R1
+[Huawei-mstp-region]instance 1 vlan 100
+[Huawei-mstp-region]instance 2 vlan 200
+[Huawei-mstp-region]active region-configuraion
+display port vlan
+display stp region-configuration
+gvrp
+display vlan summary
+
+
+[huawei-vlan1]dhcp snooping enable
+
+[Huawei-Ethernet0/0/1]
+dhcp snooping trusted
+port link-type access 
+port default vlan 100
+port link-type trunk
+port trunk allow-pass vlan all
+port link-type hybrid
+port hybrid untagged 100
+port hybrid untagged 200
+[Huawei-Ethernet0/0/2]port hybrid pvid vlan 100
+gvrp
+gvrp registration fixed
+gvrp registration forbidden
+port link-type access
+port-security enable
+port-security mac-address sticky
+port-security protect-action shutdown
+undo shutdown
