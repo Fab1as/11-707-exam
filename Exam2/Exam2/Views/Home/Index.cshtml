@@ -26,15 +26,15 @@
         {
             <tr>
                 <td>
-                    <a asp-action="GetDishesFromRestaurant" asp-controller="Restaurant" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a>
+                    <a asp-action="GetDishesFromRestaurant" asp-controller="Home" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a>
                 </td>
                 @if (User.IsInRole("Admin"))
                 {
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
-                        <a asp-action="Create" asp-controller="Liquids" asp-route-id="@item.Id">Add liquid</a>
+                        <a asp-action="EditDish" asp-controller="Admin" asp-route-id="@item.Id">Edit</a> |
+                        @*<a asp-action="Details" asp-route-id="@item.Id">Details</a> |*@
+                        <a asp-action="DeleteDish" asp-controller="Admin" asp-route-id="@item.Id">Delete</a> |
+                        <a asp-action="AddDish" asp-controller="Admin" asp-route-id="@item.Id">Add dish</a>
                     </td>
                 }
             </tr>

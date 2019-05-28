@@ -30,3 +30,4 @@ C:\Users\Azatka\Desktop\Repository\11-707-exam\Exam2\Exam2\obj\Debug\netcoreapp2
 C:\Users\Azatka\Desktop\Repository\11-707-exam\Exam2\Exam2\obj\Debug\netcoreapp2.2\Exam2.dll
 C:\Users\Azatka\Desktop\Repository\11-707-exam\Exam2\Exam2\obj\Debug\netcoreapp2.2\Exam2.pdb
 C:\Users\Azatka\Desktop\Repository\11-707-exam\Exam2\Exam2\obj\Debug\netcoreapp2.2\Exam2.csproj.CopyComplete
+C:\Users\Azatka\Desktop\Repository\11-707-exam\Exam2\Exam2\obj\Debug\netcoreapp2.2\Razor\Views\Home\GetDishesFromRestaurant.g.cshtml.cs
