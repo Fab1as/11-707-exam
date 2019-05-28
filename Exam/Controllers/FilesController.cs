@@ -50,8 +50,8 @@ namespace Exam.Controllers
 
             if (file != null)
             {
-                filesInfo.Slug = Guid.NewGuid().ToString() + file.FileName;
-                filesInfo.PathToFile = "/Files/" + "_" + filesInfo.Slug;
+                filesInfo.Key = Guid.NewGuid().ToString() + file.FileName;
+                filesInfo.PathToFile = "/Files/" + "_" + filesInfo.Key;
                 filesInfo.FileName = file.FileName;
                 filesInfo.Extension = file.FileName.Split('.').LastOrDefault();
                 filesInfo.UploadedDate = DateTime.Now;
@@ -74,10 +74,10 @@ namespace Exam.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Download(string slug)
+        public async Task<IActionResult> Download(string key)
         {
             var file = _dbContext.Files
-                 .Where(x => x.Slug == slug || x.UserDownloadString == slug)
+                 .Where(x => x.Key == key || x.UserDownloadString == key)
                  .FirstOrDefault();
             if (file != null)
             {
