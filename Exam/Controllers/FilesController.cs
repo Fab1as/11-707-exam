@@ -34,6 +34,7 @@ namespace Exam.Controllers
             return View(model: new FileModel());
         }
 
+       
         [HttpPost]
         public async Task<IActionResult> Upload(FileModel filesInfo, IFormFile file)
         {
@@ -73,6 +74,7 @@ namespace Exam.Controllers
             return View(model: file);
         }
 
+        //чтобы скачать файл по краткой ссылке https://localhost:*****/Files/Download?key=символы короткой ссылки
         [HttpGet]
         public async Task<IActionResult> Download(string key)
         {
