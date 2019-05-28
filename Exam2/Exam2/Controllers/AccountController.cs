@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Exam2.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,6 +25,7 @@ namespace Exam2.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> ChangeRole()
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);

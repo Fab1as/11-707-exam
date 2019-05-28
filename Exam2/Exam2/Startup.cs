@@ -37,7 +37,7 @@ namespace Exam2
 
             services.AddDbContext<ApplicationDbContext>(context => { context.UseInMemoryDatabase("Exam2"); });
 
-            services.AddDefaultIdentity<IdentityUser>()
+            services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();

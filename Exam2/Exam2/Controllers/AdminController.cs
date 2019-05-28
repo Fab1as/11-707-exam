@@ -19,7 +19,7 @@ namespace Exam2.Controllers
                 ?? throw new ArgumentNullException(nameof(context));
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddRestaurant(Restaurant restaurant)
         {
             await _context.Restaurants.AddAsync(restaurant);
@@ -34,7 +34,7 @@ namespace Exam2.Controllers
             return View(restaurant);
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditRestaurant(Restaurant restaurant)
         {
             var entity = await _context.Restaurants.FindAsync(restaurant.Id);
@@ -49,7 +49,7 @@ namespace Exam2.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteRestaurant(Restaurant restaurant)
         {
             _context.Restaurants.Remove(restaurant);
@@ -57,7 +57,7 @@ namespace Exam2.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddDish(Dish dish)
         {
             await _context.Dishes.AddAsync(dish);
@@ -72,7 +72,7 @@ namespace Exam2.Controllers
             return View(dish);
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditDish(Dish dish)
         {
             var entity = await _context.Dishes.FindAsync(dish.Id);
@@ -90,7 +90,7 @@ namespace Exam2.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteDish(Dish dish)
         {
             _context.Dishes.Remove(dish);
@@ -98,7 +98,7 @@ namespace Exam2.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllOrders()
         {
             var orders = _context.Orders;
