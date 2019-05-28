@@ -20,5 +20,6 @@ namespace Exam.Entity
         public DateTime UploadedDate { get; set; }
         public int DownloadedCount { get; set; }
         public string ContentType { get; set; }
+        public string UserDownloadString { get; set; }
     }
 }

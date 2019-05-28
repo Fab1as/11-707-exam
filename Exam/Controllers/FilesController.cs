@@ -64,7 +64,9 @@ namespace Exam.Controllers
         [HttpGet]
         public async Task<IActionResult> Download(string slug)
         {
-            var file = _dbContext.Files.FirstOrDefault(x => x.Slug == slug);
+            var file = _dbContext.Files
+                 .Where(x => x.Slug == slug || x.UserDownloadString == slug)
+                 .FirstOrDefault();
             if (file != null)
             {
                 var path = _appEnvironment.WebRootPath + file.PathToFile;

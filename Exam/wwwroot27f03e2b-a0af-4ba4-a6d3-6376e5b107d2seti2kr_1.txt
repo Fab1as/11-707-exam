@@ -1,0 +1,104 @@
+Включаем роутеры свичи
+
+1) делим сеть Калькулятором 
+http://infocisco.ru/vlsm_calculator.html
+
+Распределяем сети  от В до А
+
+Router2
+#conf t 
+#interface LoopBack 0
+#ip address 192.168.1.161 255.255.255.224
+
+Defaul gateaway 192.168.16.2
+
+2)Router 4 [Huawei-GigabitEthernet0/0/1]vrrp vrid 1 virtual-ip 192.168.16.2
+ 
+ Router 5 same
+ 
+3)router:
+#conf t
+rip 1
+version 2
+undo summary
+
+
+- указать сети для анонсирования соседним маршрутизаторам:
+
+ROuter3
+network 192.168.16.0
+
+ROuter4
+network 192.168.16.0
+
+ROuter5
+network 192.168.16.0
+
+#show display rip 1 database
+
+4) 
+////OSPF
+Router 2 и Router 3
+Router 2 
+#router 
+ospf 1
+area 0
+network 192.168.16.192 0.0.0.31
+network [сеть лупбека]
+
+
+Router 3
+#router
+ospf 1
+area 0
+network 192.168.16.192 0.0.0.31
+
+- если будет получено сообщение о необходимости перезапустить OSPF процесс - выполнить перезапуск.
+<Huawei>reset ospf 1 process
+
+5) Router0 (A C D m1 m3 m4)
+ip route 0.0.0.0 0 192.168.16.130
+
+
+Router1   (A B C D m1 m4)
+ip route 0.0.0.0 0 192.168.16.241
+
+
+Router2 (B)
+ip route 192.168.16.128 255.255.255.224 192.168.16.233
+
+6)
+Routers
+
+#conf t 
+router ospf 1
+[R3-ospf-1]import-route direct cost 2
+[R3-ospf-1]import-route static cost 2
+[R4-ospf-1]import-route direct cost 2
+[R4-ospf-1]import-route rip cost 10
+[R4-rip-1]import-route ospf cost 2
+[R4-rip-1]import-route direct cost 2
+[R3]ip route-static 192.168.0.112 29 192.168.0.106
+[R2]ip route-static 0.0.0.0 0 192.168.0.98
+[R1]ip route-static 0.0.0.0 0 192.168.0.114
+
+
+120	192.168.16.0/25
+30	192.168.16.128/27
+10	192.168.16.160/28
+10	192.168.16.176/28
+10	192.168.16.192/28
+10	192.168.16.208/28
+10	192.168.16.224/28
+10	192.168.16.240/28
+
+
+
+120	192.168.0.0/25
+30	192.168.0.128/27
+30	192.168.0.160/27
+30	192.168.0.192/27
+4	192.168.0.224/29
+4	192.168.0.232/29
+4	192.168.0.240/29
+4	192.168.0.248/29

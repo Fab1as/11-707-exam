@@ -12944,11 +12944,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Azatka\\source\\repos\\Exam\\Exam\\Exam.csproj",
+      "projectUniqueName": "C:\\Users\\Azatka\\Desktop\\Repository\\11-707-exam\\Exam\\Exam.csproj",
       "projectName": "Exam",
-      "projectPath": "C:\\Users\\Azatka\\source\\repos\\Exam\\Exam\\Exam.csproj",
+      "projectPath": "C:\\Users\\Azatka\\Desktop\\Repository\\11-707-exam\\Exam\\Exam.csproj",
       "packagesPath": "C:\\Users\\Azatka\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Azatka\\source\\repos\\Exam\\Exam\\obj\\",
+      "outputPath": "C:\\Users\\Azatka\\Desktop\\Repository\\11-707-exam\\Exam\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
