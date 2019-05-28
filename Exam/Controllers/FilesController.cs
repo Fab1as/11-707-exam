@@ -37,14 +37,26 @@ namespace Exam.Controllers
         [HttpPost]
         public async Task<IActionResult> Upload(FileModel filesInfo, IFormFile file)
         {
+            var path = _appEnvironment.WebRootPath + "/Files";
+            if (!Directory.Exists(path))
+            {
+                DirectoryInfo di = Directory.CreateDirectory(path);
+            }
+
+            if (_dbContext.Files.Any(x => x.UserDownloadString == filesInfo.UserDownloadString))
+            {
+                return View(model: filesInfo);
+            }
+
             if (file != null)
             {
                 filesInfo.Slug = Guid.NewGuid().ToString() + file.FileName;
                 filesInfo.PathToFile = "/Files/" + "_" + filesInfo.Slug;
-                filesInfo.FileName = filesInfo.FileName;
+                filesInfo.FileName = file.FileName;
+                filesInfo.Extension = file.FileName.Split('.').LastOrDefault();
                 filesInfo.UploadedDate = DateTime.Now;
                 filesInfo.ContentType = file.ContentType;
-                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + filesInfo.Slug, FileMode.Create))
+                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + filesInfo.PathToFile, FileMode.Create))
                 {
                     await file.CopyToAsync(fileStream);
                 }
