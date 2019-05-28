@@ -21,5 +21,6 @@ namespace Exam.Entity
         public int DownloadedCount { get; set; }
         public string ContentType { get; set; }
         public string UserDownloadString { get; set; }
+        public bool IsPassworded { get; set; }
     }
 }
